@@ -1,0 +1,61 @@
+<h1 style="text-align:center">对话框</h1>
+<a href="javascript:;" class="weui_btn weui_btn_primary">显示 Alert</a>
+<a href="javascript:;" class="weui_btn weui_btn_primary">显示 Confirm</a>
+<a href="javascript:;" class="weui_btn weui_btn_primary">显示 Prompt</a>
+<a href="javascript:;" class="weui_btn weui_btn_primary">显示自定义对话框</a>
+
+
+<script>
+    (function() {
+        var btns = $('.weui_btn_primary')
+        btns.click(function() {
+            var index = $(this).index();
+            if (index === 1) {
+                $.alert("艹你妈", "标题", function() {
+                    //点击确认后的回调函数
+                });
+
+            } else if (index === 2) {
+                $.confirm("确认删除", function() {
+                    //点击确认后的回调函数
+                    $.toast("删除成功");
+                }, function() {
+                    //点击取消后的回调函数
+                });
+
+            } else if (index === 3) {
+                $.prompt("自定义的消息内容", function(text) {
+                    //点击确认后的回调函数
+                    //text 是用户输入的内容
+                    $.alert(text);
+                }, function() {
+                    //点击取消后的回调函数
+                });
+
+            } else if (index === 4) {
+                $.modal({
+                    title: "Hello",
+                    text: "我是自定义的modal",
+                    buttons: [{
+                        text: "支付宝",
+                        onClick: function() {
+                            $.toast("支付宝");
+                        }
+                    }, {
+                        text: "微信支付",
+                        onClick: function() {
+                            $.toast("微信支付");
+                        }
+                    }, {
+                        text: "取消",
+                        className: "default",
+                        onClick: function() {
+                            // ...
+                        }
+                    }, ]
+                });
+            }
+
+        })
+    })()
+</script>
