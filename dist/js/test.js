@@ -1,1 +1,0 @@
-!function(){function n(){var n="测试 js 压缩";console.log(n)}n()}();

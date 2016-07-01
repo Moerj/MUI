@@ -4,19 +4,25 @@
     var home = $('#demoHome')
 
     list.find('.weui_cell').click(function () {
-        container.show();
+        var url = $(this).attr('load');
+        /* container.show();
         $.ajax({
-        	url: $(this).attr('load')
+        	url: url
         })
         .done(function(data) {
         	container.empty().append(data);
             list.hide();
-        })
+        }) */
+
+        container.loadPage(url);
     })
 
-    home.click(function () {
+    /* home.click(function () {
         container.hide()
         list.show()
-    })
+    }) */
+
+
+
 
 })()
