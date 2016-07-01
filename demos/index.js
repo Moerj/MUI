@@ -1,28 +1,16 @@
 (function () {
     var container = $('#demoContainer')
     var list = $('#demoList')
-    var home = $('#demoHome')
+    var homeBtn = $('#demoHome')
 
     list.find('.weui_cell').click(function () {
-        var url = $(this).attr('load');
-        /* container.show();
-        $.ajax({
-        	url: url
-        })
-        .done(function(data) {
-        	container.empty().append(data);
-            list.hide();
-        }) */
-
-        container.loadPage(url);
+        container.loadPage({
+            url: $(this).attr('load')
+        });
     })
 
-    /* home.click(function () {
-        container.hide()
-        list.show()
-    }) */
-
-
-
+    homeBtn.click(function () {
+        container.empty();
+    })
 
 })()

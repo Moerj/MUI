@@ -4,7 +4,7 @@
 
 (function() {
     var head = document.getElementsByTagName('head')[0];
-
+    
     function createStyle(url) {
         var tag = document.createElement('link');
         tag.setAttribute('rel', 'stylesheet');
