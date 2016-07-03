@@ -3,10 +3,10 @@
  ************/
 
 var gulp = require('gulp'); //gulp主功能
-// var path = require('path'); //获取路劲的模块
 
 // 语法编译
 var less = require('gulp-less'); //less编译
+var babel = require('gulp-babel');
 
 // 文件处理
 // var rename = require('gulp-rename'); //文件更名
@@ -27,11 +27,12 @@ var reload = browserSync.reload;
 // 开始配置
 // =================================
 
-
-// less
+var jsSrc = 'src/js/**/*.js';
 var lessSrc = 'src/less/**/*.less';
+
+
 gulp.task('less', function() {
-    gulp.src(lessSrc)
+    return gulp.src(lessSrc)
         .pipe(plumber({
             errorHandler: notify.onError('Error: <%= error.message %>')
         }))
@@ -39,23 +40,34 @@ gulp.task('less', function() {
             browsers: ['last 2 versions', 'Android >= 4.0']
         }))
         .pipe(less())
-        .pipe(gulp.dest('./dist/css'))
+        .pipe(gulp.dest('dist/css'))
         .pipe(reload({
             stream: true
         }));
 });
 
-// js-compress
-var jsSrc = 'src/js/**/*.js';
-gulp.task('js-compress',function () {
-    gulp.src(jsSrc)
+gulp.task('js-es2015', function() {
+    // 编译js-es6
+    return gulp.src(jsSrc)
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(gulp.dest('dist/js'))
+})
+
+gulp.task('js-compress', function() {
+    // js编译并压缩
+    return gulp.src(jsSrc)
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify())
-        .pipe(gulp.dest('./dist/js'));
+        .pipe(gulp.dest('dist/js'));
 })
 
 
-// 总任务，这里会执行整个gulp任务并开启浏览器同步。
 gulp.task('default', [], function() {
+    // 总任务，这里会执行整个gulp任务并开启浏览器同步。
 
     // 文件改变，自动同步浏览器刷新
     browserSync.init({
@@ -63,14 +75,14 @@ gulp.task('default', [], function() {
         // 需要监听的文件路径和类型
         // files: "**",
         files: [
-            "./dist/**/*.css",
-            "./dist/**/*.js",
-            "./dist/**/*.html",
-            "./demos/**"
+            "dist/**/*.css",
+            "dist/**/*.js",
+            "dist/**/*.html",
+            "demos/**"
         ],
 
         // 启动端口
-		port : 7777,
+        port: 7777,
 
         // 动态根路径
         server: {
@@ -84,6 +96,6 @@ gulp.task('default', [], function() {
 
     // 文件改变，自动执行编译或打包的任务
     gulp.watch(lessSrc, ['less'])
-    gulp.watch(jsSrc, ['js-compress'])
+    gulp.watch(jsSrc, ['js-es2015'])
 
 });

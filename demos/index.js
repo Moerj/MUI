@@ -3,14 +3,13 @@
     var list = $('#demoList')
     var homeBtn = $('#demoHome')
 
-    list.find('.weui_cell').click(function () {
+    list.find('.weui_cell').on('click',function () {
         container.loadPage({
             url: $(this).attr('load')
         });
     })
 
-    homeBtn.click(function () {
+    homeBtn.on('click',function () {
         container.empty();
     })
-
 })()
