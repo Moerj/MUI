@@ -33,7 +33,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function reset() {
                 this.$progress.css({
                     backgroundColor: this.color,
-                    transition: this.transition,
+                    transition: 'none',
                     height: '2px',
                     width: 0,
                     position: 'fixed',
@@ -59,7 +59,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function start() {
                 this.reset();
                 this.$progress.css({
-                    width: this.max()
+                    width: this.max(),
+                    transition: this.transition
                 });
             }
         }, {
@@ -82,10 +83,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (!this.timer) {
                     this.timer = setTimeout(function () {
                         _this.timer = null;
-                        _this.$progress.css({
-                            transition: '0s',
-                            width: 0
-                        });
+                        _this.reset();
                     }, 700);
                 }
             }
@@ -105,7 +103,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     function _initNamespace(dom) {
         if (dom._jQloader === undefined) {
-            dom._jQloader = {};
+            dom._jQloader = {}; //dom 上存放jQloader数据的命名空间
         }
         if (dom._jQloader.loadFinishEvents === undefined) {
             dom._jQloader.loadFinishEvents = [];
@@ -122,23 +120,23 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     // 编译当前页面 html 标签上的 loadPage 指令
     function _compile() {
-        var include = $('jq-include');
+        var $loaders = $('jq-include');
 
         var _loop = function _loop(i) {
-            var $include = $(include[i]);
-            var url = $include.attr('src');
+            var $loader = $($loaders[i]);
+            var url = $loader.attr('src');
             var $container = $('<div></div>');
-            $include.replaceWith($container);
+            $loader.replaceWith($container);
             $container.loadPage({
                 url: url,
                 history: false,
-                loadingEffect: false
+                progress: false
             }, function () {
                 $container.children().eq(0).unwrap();
             });
         };
 
-        for (var i = 0; i < include.length; i++) {
+        for (var i = 0; i < $loaders.length; i++) {
             _loop(i);
         }
     }
@@ -157,24 +155,26 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     });
 
     // 暴露的公共方法 ==============================
-    // dom使用 loadPage 加载完后的回调
+    // loadPage 加载完后的回调
     $.fn.loadFinish = function (call_back) {
         var container = $(this);
         container[0]._jQloader.loadFinishEvents.push(call_back);
         return container;
     };
 
+    // 加载一个页面
     $.fn.loadPage = function (OPTS, call_back) {
         var container = $(this);
         var DEFAULT = {
             history: true,
-            loadingEffect: true,
+            progress: true,
             cache: true,
             async: true
         };
 
         OPTS = $.extend({}, DEFAULT, OPTS);
 
+        // 初始化配置容器命名空间
         _initNamespace(container[0]);
 
         if (OPTS.history) {
@@ -191,11 +191,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
         }
 
-        // 开启 loading
-        if (OPTS.loadingEffect) {
-            $.loading.start();
-        }
+        // 开启 loading 进度条
+        if (OPTS.progress) $.progressBar.start();
 
+        // 请求页面
         $.ajax({
             dataType: 'html',
             url: OPTS.url,
@@ -204,6 +203,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             timeout: 10000,
             success: function success(data) {
 
+                // 写入页面
                 container.html(data);
 
                 // 解决Zepto ajxa 请求到的页面 script 标签执行问题
@@ -221,24 +221,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     }
                 }
 
-                // 每次加载完执行编译
+                // 编译新页面上的指令
                 _compile();
 
-                // 关闭 loading
-                if (OPTS.loadingEffect) {
-                    $.loading.finish();
-                }
-
-                // 运行绑定在元素上的回调
+                // 运行容器上的回调方法组
                 container[0]._jQloader.loadFinish();
             },
             error: function error() {
                 console.warn('页面载入失败！');
             },
             complete: function complete() {
-                if (call_back) {
-                    call_back();
-                }
+                // 进度条结束
+                if (OPTS.progress) $.progressBar.finish();
+                if (call_back) call_back();
             }
         });
 
@@ -248,8 +243,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     // 初始化调用
     $(function () {
 
-        if (!$.loading) {
-            $.loading = new _Loading();
+        if (!$.progressBar) {
+            $.progressBar = new _Loading();
         }
 
         _compile();

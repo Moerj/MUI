@@ -48,7 +48,7 @@ ajax 方式加载页面到容器中
 $('body').loadPage({
     url: 'string',  //请求地址
     history: true,  //是否写入浏览器历史，默认 true
-    loadingEffect: true,    //是否显示 loading 效果，默认 true
+    progress: true,    //是否加载时显示进度条，默认 true
     cache: true,    //是否开启缓存，默认 true
     async: true     //是否异步，默认 true
 })

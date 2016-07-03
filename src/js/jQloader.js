@@ -21,7 +21,7 @@
         reset() {
             this.$progress.css({
                 backgroundColor: this.color,
-                transition: this.transition,
+                transition: 'none',
                 height: '2px',
                 width: 0,
                 position: 'fixed',
@@ -41,7 +41,8 @@
         start() {
             this.reset();
             this.$progress.css({
-                width: this.max()
+                width: this.max(),
+                transition: this.transition
             });
         }
         stop() {
@@ -58,10 +59,7 @@
             if (!this.timer) {
                 this.timer = setTimeout(() => {
                     this.timer = null;
-                    this.$progress.css({
-                        transition: '0s',
-                        width: 0
-                    });
+                    this.reset();
                 }, 700)
             }
         }
@@ -75,7 +73,7 @@
     // 初始化 dom 对象下的命名空间，用于存放数据
     function _initNamespace(dom) {
         if (dom._jQloader === undefined) {
-            dom._jQloader = {}
+            dom._jQloader = {}; //dom 上存放jQloader数据的命名空间
         }
         if (dom._jQloader.loadFinishEvents === undefined) {
             dom._jQloader.loadFinishEvents = []
@@ -92,17 +90,17 @@
 
     // 编译当前页面 html 标签上的 loadPage 指令
     function _compile() {
-        let include = $('jq-include');
+        let $loaders = $('jq-include');
 
-        for (let i = 0; i < include.length; i++) {
-            let $include = $(include[i]);
-            let url = $include.attr('src')
+        for (let i = 0; i < $loaders.length; i++) {
+            let $loader = $($loaders[i]);
+            let url = $loader.attr('src')
             let $container = $('<div></div>')
-            $include.replaceWith($container);
+            $loader.replaceWith($container);
             $container.loadPage({
                 url: url,
                 history: false,
-                loadingEffect: false
+                progress: false
             }, () => {
                 $container.children().eq(0).unwrap();
             })
@@ -126,25 +124,26 @@
 
 
     // 暴露的公共方法 ==============================
-    // dom使用 loadPage 加载完后的回调
+    // loadPage 加载完后的回调
     $.fn.loadFinish = function(call_back) {
         let container = $(this);
         container[0]._jQloader.loadFinishEvents.push(call_back);
         return container
     }
 
+    // 加载一个页面
     $.fn.loadPage = function(OPTS, call_back) {
         let container = $(this);
         let DEFAULT = {
             history: true,
-            loadingEffect: true,
+            progress: true,
             cache: true,
             async: true
         }
 
         OPTS = $.extend({}, DEFAULT, OPTS);
 
-
+        // 初始化配置容器命名空间
         _initNamespace(container[0]);
 
         if (OPTS.history) {
@@ -161,11 +160,10 @@
             }
         }
 
-        // 开启 loading
-        if (OPTS.loadingEffect) {
-            $.loading.start()
-        }
+        // 开启 loading 进度条
+        if (OPTS.progress) $.progressBar.start();
 
+        // 请求页面
         $.ajax({
             dataType: 'html',
             url: OPTS.url,
@@ -174,6 +172,7 @@
             timeout: 10000,
             success: (data) => {
 
+                // 写入页面
                 container.html(data);
 
                 // 解决Zepto ajxa 请求到的页面 script 标签执行问题
@@ -191,24 +190,19 @@
                     }
                 }
 
-                // 每次加载完执行编译
+                // 编译新页面上的指令
                 _compile();
 
-                // 关闭 loading
-                if (OPTS.loadingEffect) {
-                    $.loading.finish();
-                }
-
-                // 运行绑定在元素上的回调
+                // 运行容器上的回调方法组
                 container[0]._jQloader.loadFinish();
             },
             error: () => {
                 console.warn('页面载入失败！');
             },
             complete: () => {
-                if (call_back) {
-                    call_back();
-                }
+                // 进度条结束
+                if (OPTS.progress) $.progressBar.finish();
+                if (call_back) call_back();
             }
         })
 
@@ -218,8 +212,8 @@
     // 初始化调用
     $(() => {
 
-        if (!$.loading) {
-            $.loading = new _Loading();
+        if (!$.progressBar) {
+            $.progressBar = new _Loading();
         }
 
         _compile();
