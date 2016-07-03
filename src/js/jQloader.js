@@ -30,11 +30,8 @@
                 boxShadow: '1px 1px 2px 0 ' + this.color
             });
         }
-        getMax() {
+        max() {
             return document.body.clientWidth
-        }
-        getProgress() {
-            return this.$progress
         }
         setColor(color) {
             if (typeof color === 'string') {
@@ -44,7 +41,7 @@
         start() {
             this.reset();
             this.$progress.css({
-                width: this.getMax()
+                width: this.max()
             });
         }
         stop() {
@@ -55,7 +52,7 @@
         finish() {
             this.stop();
             this.$progress.css({
-                width: this.getMax(),
+                width: this.max(),
                 transition: '0.5s width'
             });
             if (!this.timer) {
@@ -65,7 +62,7 @@
                         transition: '0s',
                         width: 0
                     });
-                }, 1000)
+                }, 700)
             }
         }
         destroy() {
@@ -104,7 +101,8 @@
             $include.replaceWith($container);
             $container.loadPage({
                 url: url,
-                history: false
+                history: false,
+                loadingEffect: false
             }, () => {
                 $container.children().eq(0).unwrap();
             })

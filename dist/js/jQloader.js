@@ -43,14 +43,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 });
             }
         }, {
-            key: 'getMax',
-            value: function getMax() {
+            key: 'max',
+            value: function max() {
                 return document.body.clientWidth;
-            }
-        }, {
-            key: 'getProgress',
-            value: function getProgress() {
-                return this.$progress;
             }
         }, {
             key: 'setColor',
@@ -64,7 +59,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function start() {
                 this.reset();
                 this.$progress.css({
-                    width: this.getMax()
+                    width: this.max()
                 });
             }
         }, {
@@ -81,7 +76,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
                 this.stop();
                 this.$progress.css({
-                    width: this.getMax(),
+                    width: this.max(),
                     transition: '0.5s width'
                 });
                 if (!this.timer) {
@@ -91,7 +86,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             transition: '0s',
                             width: 0
                         });
-                    }, 1000);
+                    }, 700);
                 }
             }
         }, {
@@ -136,7 +131,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             $include.replaceWith($container);
             $container.loadPage({
                 url: url,
-                history: false
+                history: false,
+                loadingEffect: false
             }, function () {
                 $container.children().eq(0).unwrap();
             });
