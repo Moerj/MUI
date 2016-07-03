@@ -209,13 +209,13 @@
         return container;
     }
 
+    // 创建进度条
+    if (!$.progressBar) {
+        $.progressBar = new _Loading();
+    }
+
     // 初始化调用
     $(() => {
-
-        if (!$.progressBar) {
-            $.progressBar = new _Loading();
-        }
-
         _compile();
     })
 })($)

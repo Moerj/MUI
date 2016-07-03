@@ -240,13 +240,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         return container;
     };
 
+    // 创建进度条
+    if (!$.progressBar) {
+        $.progressBar = new _Loading();
+    }
+
     // 初始化调用
     $(function () {
-
-        if (!$.progressBar) {
-            $.progressBar = new _Loading();
-        }
-
         _compile();
     });
 })($);
