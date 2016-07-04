@@ -245,7 +245,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         $.progressBar = new ProgressBar();
     }
 
-    // 初始化调用
+    // 初始化页面时，执行一次编译
     $(function () {
         _compile();
     });

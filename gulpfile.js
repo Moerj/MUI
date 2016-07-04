@@ -92,6 +92,8 @@ gulp.task('default', [], function() {
 
         // 静态化的路径
         serveStatic: ['.', './demos/']
+
+
     });
 
     // 文件改变，自动执行编译或打包的任务

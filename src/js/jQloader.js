@@ -214,7 +214,7 @@
         $.progressBar = new ProgressBar();
     }
 
-    // 初始化调用
+    // 初始化页面时，执行一次编译
     $(() => {
         _compile();
     })
