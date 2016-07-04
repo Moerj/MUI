@@ -9,7 +9,7 @@
     'use strict';
 
     // 加载时页面顶部进度条
-    class _Loading {
+    class ProgressBar {
         constructor() {
             this.color = '#58a2d1';
             this.transition = '10s width';
@@ -211,7 +211,7 @@
 
     // 创建进度条
     if (!$.progressBar) {
-        $.progressBar = new _Loading();
+        $.progressBar = new ProgressBar();
     }
 
     // 初始化调用

@@ -16,9 +16,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     // 加载时页面顶部进度条
 
-    var _Loading = function () {
-        function _Loading() {
-            _classCallCheck(this, _Loading);
+    var ProgressBar = function () {
+        function ProgressBar() {
+            _classCallCheck(this, ProgressBar);
 
             this.color = '#58a2d1';
             this.transition = '10s width';
@@ -28,7 +28,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             $('html').append(this.$progress);
         }
 
-        _createClass(_Loading, [{
+        _createClass(ProgressBar, [{
             key: 'reset',
             value: function reset() {
                 this.$progress.css({
@@ -95,7 +95,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             }
         }]);
 
-        return _Loading;
+        return ProgressBar;
     }();
 
     // 初始化 dom 对象下的命名空间，用于存放数据
@@ -242,7 +242,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     // 创建进度条
     if (!$.progressBar) {
-        $.progressBar = new _Loading();
+        $.progressBar = new ProgressBar();
     }
 
     // 初始化调用
