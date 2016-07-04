@@ -1,5 +1,5 @@
 (function () {
-    var container = $('#demoContainer')
+    var container = $('#welcomeRouter')
     var list = $('#demoList')
     var homeBtn = $('#demoHome')
 
