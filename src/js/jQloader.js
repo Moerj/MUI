@@ -108,9 +108,8 @@
 
     }
 
-
-    // 浏览器历史跳转
-    window.addEventListener("popstate", () => {
+    // 载入历史记录
+    function _loadHitory() {
         let container = history.state;
         let url = document.location.hash.substr(1);
 
@@ -120,6 +119,17 @@
             container = sessionStorage.getItem('loadPageFirst') || 'body';
             $(container).empty();
         }
+    }
+
+    // 刷新页面
+    function _windowReload() {
+        _loadHitory()
+    }
+
+
+    // 浏览器历史跳转
+    window.addEventListener("popstate", () => {
+        _loadHitory()
     });
 
 
@@ -214,8 +224,14 @@
         $.progressBar = new ProgressBar();
     }
 
-    // 初始化页面时，执行一次编译
+
     $(() => {
+        // 初始化页面时，执行一次编译
         _compile();
+
+        // 刷新页面后，加载之前的路由页面
+        setTimeout(() => {
+            _windowReload();
+        })
     })
 })($)

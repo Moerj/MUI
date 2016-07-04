@@ -29,6 +29,7 @@ https://github.com/Moerj/WeUI
     js/     //编译、压缩后的 js 文件会自动生成在这里
     lib/    //存放第三方依赖文件
     pages/  //存放 html 页面
+    images/ //存放图片
 ```
   
   

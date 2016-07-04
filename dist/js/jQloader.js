@@ -141,8 +141,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         }
     }
 
-    // 浏览器历史跳转
-    window.addEventListener("popstate", function () {
+    // 载入历史记录
+    function _loadHitory() {
         var container = history.state;
         var url = document.location.hash.substr(1);
 
@@ -152,6 +152,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             container = sessionStorage.getItem('loadPageFirst') || 'body';
             $(container).empty();
         }
+    }
+
+    // 刷新页面
+    function _windowReload() {
+        _loadHitory();
+    }
+
+    // 浏览器历史跳转
+    window.addEventListener("popstate", function () {
+        _loadHitory();
     });
 
     // 暴露的公共方法 ==============================
@@ -245,8 +255,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         $.progressBar = new ProgressBar();
     }
 
-    // 初始化页面时，执行一次编译
     $(function () {
+        // 初始化页面时，执行一次编译
         _compile();
+
+        // 刷新页面后，加载之前的路由页面
+        setTimeout(function () {
+            _windowReload();
+        });
     });
 })($);
