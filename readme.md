@@ -41,6 +41,20 @@ ajax 方式请求一个页面，并放入在该容器中
 <!-- somePage页面将会以 ajax 方式加进来 -->
 <jq-include src="./somePage.html"></jq-include>
 ```
+
+### jq-router 路由容器
+用于存放 ajax 页面的路由容器，整个浏览器窗口只能有一个jq-router，多余的将会被忽略。  
+  
+__用途：__  
+呈现ajax页面的容器，主要用于首次载入页面用于显示地址栏#xxx.html部分的数据，如果页面上没有路由容器，则首次加载忽略路由地址。
+
+```html
+<!-- 把 loadPage 方法请求的数据塞入这里 -->
+<jq-router></jq-router>
+```
+__提示：__  
+如果你需要出示加载一个页面时有多个容器呈现其他 ajax 页面数据时，请使用 jq-include 指令。  
+jq-router 指令仅仅是用来首次加载时呈现 loadPage 方式请求的页面数据。
   
   
 ## 公共方法  
@@ -81,3 +95,8 @@ $.progressBar
 
 ### 点击事件优化
 移动端也请直接使用 click 事件，不需要用 touch 事件了
+
+### 支持 ajax 载入页面的 js 运行
+用过淘宝SUI Mobile的同学应该知道，他们也提供了前端静态路由功能，但是不能运行 ajxa 页面上的 js  
+本框架的 jQloader 库提供这项功能。并随着版本更新，会逐渐完善。  
+关于 jQloader 库，我会另开一个项目，感兴趣的同学请关注我的 github
