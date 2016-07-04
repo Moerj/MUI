@@ -110,22 +110,26 @@
 
     // 载入历史记录
     function _loadHitory() {
-        let container = history.state;
+        let domStr = history.state; //为 null 代表放回到最初历史
         let url = document.location.hash.substr(1);
+        let $container;
+
+        if (domStr) {
+            $container = $(domStr)
+        } else {
+            $container = $($('jq-router')[0])
+        }
+
+        if (!$container.length) {
+            return;
+        }
 
         if (url) {
-            $(container).load(url);
+            $container.load(url);
         } else {
-            container = sessionStorage.getItem('loadPageFirst') || 'body';
-            $(container).empty();
+            $container.empty();
         }
     }
-
-    // 刷新页面
-    function _windowReload() {
-        _loadHitory()
-    }
-
 
     // 浏览器历史跳转
     window.addEventListener("popstate", () => {
@@ -144,6 +148,12 @@
     // 加载一个页面
     $.fn.loadPage = function(OPTS, call_back) {
         let container = $(this);
+
+        if (!container.length) {
+            console.error(container.selector + ' not a vaild selector');
+            return container;
+        }
+
         let DEFAULT = {
             history: true,
             progress: true,
@@ -155,20 +165,6 @@
 
         // 初始化配置容器命名空间
         _initNamespace(container[0]);
-
-        if (OPTS.history) {
-            if (container[0].localName !== 'body') {
-                if (!container.attr('id')) {
-                    container.attr('id', OPTS.url)
-                }
-                if (!sessionStorage.getItem('loadPageFirst')) {
-                    sessionStorage.setItem('loadPageFirst', '#' + container.attr('id'));
-                }
-                history.pushState('#' + container.attr('id'), '', '#' + OPTS.url);
-            } else {
-                history.pushState('body', '', '#' + OPTS.url);
-            }
-        }
 
         // 开启 loading 进度条
         if (OPTS.progress) $.progressBar.start();
@@ -216,6 +212,25 @@
             }
         })
 
+        // 浏览器历史记录
+        if (OPTS.history) {
+            // 处理 url 格式，浏览器地址栏去掉./开头
+            let url = OPTS.url;
+            if (OPTS.url.substring(0, 2) === './') {
+                url = OPTS.url.substring(2)
+            }
+
+            // 改变浏览器地址栏
+            if (container.localName === 'body') {
+                history.pushState('body', '', '#' + url);
+            } else {
+                if (!container[0].id) {
+                    container[0].id = 'router-' + Date.parse(new Date());
+                }
+                history.pushState('#' + container[0].id, '', '#' + url);
+            }
+        }
+
         return container;
     }
 
@@ -229,9 +244,9 @@
         // 初始化页面时，执行一次编译
         _compile();
 
-        // 刷新页面后，加载之前的路由页面
+        // 刷新页面后，加载之前最后一次请求的路由页面
         setTimeout(() => {
-            _windowReload();
+            _loadHitory();
         })
     })
 })($)
