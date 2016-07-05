@@ -10,6 +10,7 @@ https://github.com/Moerj/WeUI
 - [WeUI 微信UI](https://github.com/weui/weui/wiki)
 - [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
 - [swiper 幻灯片组件](http://www.swiper.com.cn/)
+- 其他组件会在这里更新地址
   
   
 ## 工程目录
