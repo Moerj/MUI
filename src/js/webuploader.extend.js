@@ -30,6 +30,31 @@
         let $clearlist = $ctrl.find('.uploader-clearlist')
         let $retry = $ctrl.find('.uploader-retry')
 
+        // 重置控制区域的按钮状态
+        function _resetCtrlButton() {
+            let initedFiles = uploader.getFiles('inited');
+            let errorFiles = uploader.getFiles('error');
+
+            if (initedFiles.length) {
+                $submit.show()
+                $clearlist.show()
+            }else{
+                $submit.hide()
+                $clearlist.hide()
+            }
+
+            if (errorFiles.length) {
+                $retry.show()
+            }else{
+                $retry.hide()
+            }
+        }
+
+        // 检查 dom 来获取已存在的上传文件
+        function _getFilesNum() {
+            return $list.find('.file-item').length;
+        }
+
         $(this).append($contanier);
 
         let DEFAULT = {
@@ -125,7 +150,7 @@
             }, OPTS.size, OPTS.size);
 
             // 当上传文件数超过限制，隐藏添加按钮
-            if (uploader.getFiles().length >= OPTS.fileNumLimit) {
+            if (_getFilesNum() >= OPTS.fileNumLimit) {
                 $pick.hide()
             }
 
@@ -195,26 +220,6 @@
 
             _resetCtrlButton();
         })
-
-        // 重置控制区域的按钮状态
-        function _resetCtrlButton() {
-            let initedFiles = uploader.getFiles('inited');
-            let errorFiles = uploader.getFiles('error');
-
-            if (initedFiles.length) {
-                $submit.show()
-                $clearlist.show()
-            }else{
-                $submit.hide()
-                $clearlist.hide()
-            }
-
-            if (errorFiles.length) {
-                $retry.show()
-            }else{
-                $retry.hide()
-            }
-        }
 
 
         // 文件上传按钮

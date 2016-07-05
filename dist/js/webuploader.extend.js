@@ -23,6 +23,31 @@
         var $clearlist = $ctrl.find('.uploader-clearlist');
         var $retry = $ctrl.find('.uploader-retry');
 
+        // 重置控制区域的按钮状态
+        function _resetCtrlButton() {
+            var initedFiles = uploader.getFiles('inited');
+            var errorFiles = uploader.getFiles('error');
+
+            if (initedFiles.length) {
+                $submit.show();
+                $clearlist.show();
+            } else {
+                $submit.hide();
+                $clearlist.hide();
+            }
+
+            if (errorFiles.length) {
+                $retry.show();
+            } else {
+                $retry.hide();
+            }
+        }
+
+        // 检查 dom 来获取已存在的上传文件
+        function _getFilesNum() {
+            return $list.find('.file-item').length;
+        }
+
         $(this).append($contanier);
 
         var DEFAULT = {
@@ -109,7 +134,7 @@
             }, OPTS.size, OPTS.size);
 
             // 当上传文件数超过限制，隐藏添加按钮
-            if (uploader.getFiles().length >= OPTS.fileNumLimit) {
+            if (_getFilesNum() >= OPTS.fileNumLimit) {
                 $pick.hide();
             }
 
@@ -175,26 +200,6 @@
 
             _resetCtrlButton();
         });
-
-        // 重置控制区域的按钮状态
-        function _resetCtrlButton() {
-            var initedFiles = uploader.getFiles('inited');
-            var errorFiles = uploader.getFiles('error');
-
-            if (initedFiles.length) {
-                $submit.show();
-                $clearlist.show();
-            } else {
-                $submit.hide();
-                $clearlist.hide();
-            }
-
-            if (errorFiles.length) {
-                $retry.show();
-            } else {
-                $retry.hide();
-            }
-        }
 
         // 文件上传按钮
         $submit.on('click', function () {

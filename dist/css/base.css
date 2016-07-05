@@ -26,16 +26,16 @@
   font-size: 12px;
 }
 .webuploaer .uploader-list .thumbnail .info {
-  background-color: rgba(100, 190, 247, 0.77);
+  background-color: rgba(100, 190, 247, 0.9);
   z-index: 1;
 }
 .webuploaer .uploader-list .thumbnail .error {
-  background-color: rgba(232, 74, 74, 0.7);
+  background-color: rgba(232, 74, 74, 0.9);
   z-index: 2;
   text-align: center;
 }
 .webuploaer .uploader-list .thumbnail .success {
-  background-color: rgba(99, 209, 93, 0.76);
+  background-color: rgba(99, 209, 93, 0.9);
   z-index: 3;
 }
 .webuploaer .uploader-pick {
