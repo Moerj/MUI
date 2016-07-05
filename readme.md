@@ -1,4 +1,4 @@
-# 微信前端框架
+# 微信前端框架 v0.1.0
 
 https://github.com/Moerj/WeUI
   
