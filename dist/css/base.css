@@ -1,18 +1,14 @@
+/* 框架依赖 */
+@import "//res.wx.qq.com/open/libs/weui/0.4.2/weui.css";
+@import "../../dist/lib/jquery-weui/jquery-weui.min.css";
 .webuploaer {
   width: 100%;
 }
 .webuploaer .uploader-list {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
   justify-content: flex-start;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: flex-start;
 }
 .webuploaer .uploader-list .thumbnail {
@@ -67,14 +63,8 @@
   opacity: 1;
 }
 .webuploaer .uploader-control {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
 }
 .webuploaer .uploader-control > * {
@@ -93,3 +83,5 @@
 .webuploaer .uploader-control > .uploader-retry {
   background-color: #d65858;
 }
+/* 字体库 */
+/* @import "//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"; */
