@@ -7,9 +7,9 @@ https://github.com/Moerj/WeUI
 导入 jQuery 或者 Zepto
   
 ## 集成
-- [WeUI](https://github.com/weui/weui/wiki)
-- [jquery-weui](http://lihongxun945.github.io/jquery-weui)
-- [swiper](http://www.swiper.com.cn/)
+- [WeUI 微信UI](https://github.com/weui/weui/wiki)
+- [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
+- [swiper 幻灯片组件](http://www.swiper.com.cn/)
   
   
 ## 工程目录
