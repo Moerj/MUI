@@ -1,5 +1,5 @@
 /**
- * webuploaer.extend v0.0.1
+ * webuploaer.extend v0.0.2
  * webuploaer百度上传组件 UI 交互封装
  * @license: MIT
  * Designed and built by Moer
@@ -13,11 +13,11 @@
         // 创建 dom 结构
         let $contanier = $('<div class="webuploaer">' +
                                 '<div class="uploader-list">' +
-                                    '<div class="uploader-pick"></div>' +
+                                    '<div class="uploader-pick">+</div>' +
                                 '</div>' +
                                 '<div class="uploader-control">' +
                                     '<div class="uploader-submit">上传</div>' +
-                                    '<div class="uploader-clearlist">清空</div>' +
+                                    '<div class="uploader-clearlist">取消</div>' +
                                     '<div class="uploader-retry">重试</div>' +
                                 '</div>' +
                             '</div>')
@@ -35,7 +35,9 @@
         let DEFAULT = {
             size: 80,
             auto: false,
-            server: undefined
+            server: undefined,
+            fileNumLimit: 50,
+            compress: {},
         }
 
         OPTS = $.extend({}, DEFAULT, OPTS);
@@ -46,6 +48,12 @@
             $submit.remove();
             $clearlist.remove();
         }
+
+        // 设置pick尺寸
+        $pick.css({
+            width: OPTS.size,
+            height: OPTS.size
+        })
 
 
         // 初始化Web Uploader
@@ -62,6 +70,12 @@
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: $pick,
 
+            // 文件个数限制
+            fileNumLimit: OPTS.fileNumLimit,
+
+            // 压缩配置
+            compress: OPTS.compress,
+
             // 只允许选择图片文件。
             accept: {
                 title: 'Images',
@@ -69,6 +83,14 @@
                 mimeTypes: 'image/*'
             }
         });
+
+        // 当最大文件数限制为1时，将上传按钮改为单选
+        if (OPTS.fileNumLimit===1) {
+            setTimeout(function () {
+                $contanier.find('input[type=file]').removeAttr('multiple')
+            })
+        }
+
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function(file) {
@@ -79,6 +101,12 @@
                     '</div>'
                 ),
                 $img = $li.find('img');
+
+            // 设置尺寸
+            $li.css({
+                width: OPTS.size,
+                height: OPTS.size
+            })
 
 
             // $list为容器jQuery实例
@@ -95,6 +123,11 @@
 
                 $img.attr('src', src);
             }, OPTS.size, OPTS.size);
+
+            // 当上传文件数超过限制，隐藏添加按钮
+            if (uploader.getFiles().length >= OPTS.fileNumLimit) {
+                $pick.hide()
+            }
 
             _resetCtrlButton();
         });
@@ -195,11 +228,17 @@
             for (var i = 0; i < files.length; i++) {
                 uploader.removeFile( files[i], true )
             }
+
+            // 上传文件数未超过限制，显示添加按钮
+            $pick.show();
         })
 
         // 重试上传失败的文件
         $retry.on('click',function () {
-            uploader.retry();
+            let errorFiles = uploader.getFiles('error');
+            for (var i = 0; i < errorFiles.length; i++) {
+                uploader.upload(errorFiles[i]);
+            }
             $retry.hide();
         })
     }
