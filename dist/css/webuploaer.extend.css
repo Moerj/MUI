@@ -1,0 +1,97 @@
+.webuploaer {
+  width: 100%;
+}
+.webuploaer .uploader-list {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.webuploaer .uploader-list .thumbnail {
+  margin: 5px;
+  position: relative;
+}
+.webuploaer .uploader-list .thumbnail > div {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  font-weight: 100;
+  color: #fff;
+}
+.webuploaer .uploader-list .thumbnail .info {
+  background-color: rgba(100, 190, 247, 0.77);
+  z-index: 1;
+}
+.webuploaer .uploader-list .thumbnail .error {
+  background-color: rgba(232, 74, 74, 0.7);
+  z-index: 2;
+  text-align: center;
+}
+.webuploaer .uploader-list .thumbnail .success {
+  background-color: rgba(99, 209, 93, 0.76);
+  z-index: 3;
+}
+.webuploaer .uploader-pick {
+  border: solid 2px #ddd;
+  width: 80px;
+  height: 80px;
+  position: relative;
+  cursor: pointer;
+  margin: 5px;
+}
+.webuploaer .uploader-pick::after {
+  content: '+';
+  color: #ddd;
+  font-size: 50px;
+  font-weight: 100;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 80px;
+}
+.webuploaer .uploader-pick > * {
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  z-index: 1;
+}
+.webuploaer .uploader-control {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.webuploaer .uploader-control > * {
+  width: 40px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 5px;
+  margin: 10px 10px 10px;
+  text-align: center;
+  background-color: #5896e8;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  display: none;
+}
+.webuploaer .uploader-control > .uploader-retry {
+  background-color: #d65858;
+}

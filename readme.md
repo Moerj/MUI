@@ -10,6 +10,7 @@ https://github.com/Moerj/WeUI
 - [WeUI 微信UI](https://github.com/weui/weui/wiki)
 - [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
 - [swiper 幻灯片组件](http://www.swiper.com.cn/)
+- [WebUploader 上传组件](http://fex.baidu.com/webuploader)
 - 其他组件会在这里更新地址
   
   
@@ -91,6 +92,19 @@ $.progressBar
 .finish()           //走完进度条 100%
 .setColor('color')  //设置进度条颜色
 ```
+
+## 第三方组件封装
+
+### WebUploader
+封装上传组件的 UI交互功能
+```javascript
+$('#yourContanier').webuploader({
+    size: 80,           //回显缩略图尺寸 默认80
+    auto: false,        //自动上传 默认 false
+    server: 'url'   //上传后台地址
+})
+```
+
   
 ## 其他
 

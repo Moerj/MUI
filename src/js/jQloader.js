@@ -102,7 +102,9 @@
                 history: false,
                 progress: false
             }, () => {
+                // 编译并ajax加载完成后的回调
                 $container.children().eq(0).unwrap();
+                _loadHitory();
             })
         }
 
@@ -240,13 +242,11 @@
     }
 
 
-    $(() => {
-        // 初始化页面时，执行一次编译
+    $(() => {// jQloader所在页面/首页初始化 dom 完毕
+        // 执行一次编译
         _compile();
 
-        // 刷新页面后，加载之前最后一次请求的路由页面
-        setTimeout(() => {
-            _loadHitory();
-        })
+        // 请求一次浏览器历史
+        _loadHitory();
     })
 })($)

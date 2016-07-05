@@ -1,0 +1,100 @@
+.webuploaer{
+    width: 100%;
+    @item-margin:5px;
+    @item-size:80px;
+
+
+    // 回显容器
+    .uploader-list{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        // 回显缩略图
+        .thumbnail{
+            margin: @item-margin;
+            position: relative;
+            &>div{
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                overflow: hidden;
+                font-weight: 100;
+                color: #fff;
+            }
+            .info{
+                background-color: rgba(100, 190, 247, 0.77);
+                z-index: 1;
+            }
+            .error{
+                background-color: rgba(232, 74, 74, 0.7);
+                z-index: 2;
+                text-align: center;
+            }
+            .success{
+                background-color: rgba(99, 209, 93, 0.76);
+                z-index: 3;
+            }
+        }
+    }
+
+    // 增加按钮
+    .uploader-pick{
+        @color:#ddd;
+        border: solid 2px @color;
+        width: @item-size;
+        height: @item-size;
+        position: relative;
+        cursor: pointer;
+        margin: @item-margin;
+
+        &::after{
+            // 横线
+            content: '+';
+            color: @color;
+            font-size: 50px;
+            font-weight: 100;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: @item-size;
+        }
+
+        >*{
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0 !important;
+            z-index: 1;
+        }
+    }
+
+    // 上传按钮
+    .uploader-control{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &>*{
+            width: 40px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 5px;
+            margin: 10px 10px 10px;
+            text-align: center;
+            background-color: rgb(88, 150, 232);
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: none;
+        }
+        >.uploader-retry{
+            background-color: #d65858;
+        }
+    }
+}
