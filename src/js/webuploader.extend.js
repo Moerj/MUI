@@ -1,5 +1,5 @@
 /**
- * webuploaer.extend v0.0.3
+ * webuploaer.extend v0.0.4
  * webuploaer百度上传组件 UI 交互封装
  * @license: MIT
  * Designed and built by Moer
@@ -135,7 +135,8 @@
 
 
             // $list为容器jQuery实例
-            $list.prepend($li);
+            $list.append($li).append($pick);
+
 
             // 创建缩略图
             // 如果为非图片文件，可以不用调用此方法。
@@ -239,7 +240,7 @@
 
         // 清空正常状态的文件队列
         $clearlist.on('click',function () {
-            let files = uploader.getFiles('inited');
+            let files = uploader.getFiles('inited','error');
             for (var i = 0; i < files.length; i++) {
                 uploader.removeFile( files[i], true )
             }
