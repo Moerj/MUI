@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * webuploaer.extend v0.0.2
+ * webuploaer.extend v0.0.3
  * webuploaer百度上传组件 UI 交互封装
  * @license: MIT
  * Designed and built by Moer
@@ -157,17 +157,20 @@
         // 文件上传成功，给item添加成功class, 用样式标记上传成功。
         uploader.on('uploadSuccess', function (file) {
             var $li = $('#' + file.id),
-                $error = $li.find('div.error');
+                $success = $li.find('div.success');
 
             $li.addClass('upload-state-done');
 
             // 避免重复创建
-            if (!$error.length) {
-                $error = $('<div class="success"></div>').appendTo($li);
+            if (!$success.length) {
+                $success = $('<div class="success"></div>').appendTo($li);
             }
 
-            $error.text('上传成功');
+            $success.text('上传成功');
+
             $li.find('.error,.info').hide();
+
+            _resetCtrlButton();
         });
 
         // 文件上传失败，显示上传出错。
