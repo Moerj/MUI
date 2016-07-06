@@ -99,9 +99,12 @@ $.progressBar
 封装上传组件的 UI交互功能
 ```javascript
 $('#yourContanier').webuploader({
+    server: 'url',   //上传后台地址,必填项
+    
+    // 以下是可选项
+    
     size: 80,        //回显缩略图尺寸 默认80
     auto: false,     //自动上传 默认 false
-    server: 'url',   //上传后台地址,
     fileNumLimit: 10, //最多上传限制，默认50
     compress: {
 
