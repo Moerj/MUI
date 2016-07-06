@@ -15,7 +15,7 @@
   margin: 5px;
   position: relative;
 }
-.webuploaer .uploader-list .thumbnail > div {
+.webuploaer .uploader-list .thumbnail > *:not(img) {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -24,10 +24,16 @@
   font-weight: 100;
   color: #fff;
   font-size: 12px;
+  text-align: center;
+}
+.webuploaer .uploader-list .thumbnail .progress {
+  z-index: 1;
+  background-color: rgba(100, 190, 247, 0.9);
+  transition: '0.5s width';
 }
 .webuploaer .uploader-list .thumbnail .info {
   background-color: rgba(100, 190, 247, 0.9);
-  z-index: 1;
+  z-index: 0;
 }
 .webuploaer .uploader-list .thumbnail .error {
   background-color: rgba(232, 74, 74, 0.9);

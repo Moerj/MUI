@@ -12,7 +12,7 @@
         .thumbnail {
             margin: @item-margin;
             position: relative;
-            & > div {
+            & > *:not(img) {
                 position: absolute;
                 bottom: 0;
                 left: 0;
@@ -21,10 +21,16 @@
                 font-weight: 100;
                 color: #fff;
                 font-size: 12px;
+                text-align: center;
+            }
+            .progress{
+                z-index: 1;
+                background-color: rgba(100, 190, 247, 0.9);
+                transition: '0.5s width';
             }
             .info {
                 background-color: rgba(100, 190, 247, 0.9);
-                z-index: 1;
+                z-index: 0;
             }
             .error {
                 background-color: rgba(232, 74, 74, 0.9);

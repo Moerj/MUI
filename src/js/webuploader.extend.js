@@ -157,6 +157,7 @@
             _resetCtrlButton();
         });
 
+
         // 文件上传过程中创建进度条实时显示。
         uploader.on('uploadProgress', function(file, percentage) {
             let $li = $('#' + file.id),
@@ -164,12 +165,18 @@
 
             // 避免重复创建
             if (!$percent.length) {
+                // 创建进度条
                 $percent = $('<p class="progress"><span></span></p>')
                     .appendTo($li)
                     .find('span');
+
+                // 隐藏文件信息
+                let $info = $li.find('.info');
+                $info.hide();
             }
 
-            $percent.css('width', percentage * 100 + '%');
+            let num = percentage * 100 + '%';
+            $percent.css('width', num).text(num);
         });
 
         // 文件上传成功，给item添加成功class, 用样式标记上传成功。
