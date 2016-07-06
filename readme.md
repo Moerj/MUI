@@ -4,13 +4,17 @@ https://github.com/Moerj/WeUI
   
   
 ## 依赖
-导入 jQuery 或者 Zepto
+导入 jQuery 或者 Zepto  
+WebUploader 和 lazyload 对 jQeruy 有强依赖，因此若使用它们则需要选 jQeruy
   
-## 集成
+## 框架集成
 - [WeUI 微信UI](https://github.com/weui/weui/wiki)
 - [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
+
+## 可选组件
 - [swiper 幻灯片组件](http://www.swiper.com.cn/)
 - [WebUploader 上传组件](http://fex.baidu.com/webuploader)
+- [jquery-lazyload 图片懒加载](http://www.appelsiini.net/projects/lazyload)
 - 其他组件会在这里更新地址
   
   
