@@ -7,7 +7,7 @@ https://github.com/Moerj/WeUI
 导入 jQuery 或者 Zepto  
 WebUploader 和 lazyload 对 jQeruy 有强依赖，因此若使用它们则需要选 jQeruy
   
-## 框架集成
+## 集成
 - [WeUI 微信UI](https://github.com/weui/weui/wiki)
 - [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
 
@@ -17,6 +17,12 @@ WebUploader 和 lazyload 对 jQeruy 有强依赖，因此若使用它们则需�
 - [jquery-lazyload 图片懒加载](http://www.appelsiini.net/projects/lazyload)
 - 其他组件会在这里更新地址
   
+  
+## 安装
+克隆项目后，进入项目根目录运行
+```javascript
+npm install
+```
   
 ## 工程目录
 用于存放开发时的代码
