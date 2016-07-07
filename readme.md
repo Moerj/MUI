@@ -1,4 +1,4 @@
-# 微信前端框架 v0.1.0
+# 微信前端框架 v0.1.1
 
 https://github.com/Moerj/WeUI
   
@@ -10,6 +10,7 @@ WebUploader 和 lazyload 对 jQeruy 有强依赖，因此若使用它们则需�
 ## 集成
 - [WeUI 微信UI](https://github.com/weui/weui/wiki)
 - [jquery-weui 微信UI的封装组件库](http://lihongxun945.github.io/jquery-weui)
+- [jQloader html模块化加载器](https://moerj.github.io/jQloader)
 
 ## 可选组件
 - [swiper 幻灯片组件](http://www.swiper.com.cn/)
