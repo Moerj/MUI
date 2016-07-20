@@ -37,12 +37,13 @@
         },
 
         uploadSuccess: function (file, response) {
-            console.info('文件上传成功：',file);
-            console.log('服务端返回数据：',response);
+            // file {File}File对象
+            // response {Object}服务端返回的数据
         },
 
-        uploadError: function (file) {
-            console.error('文件上传失败',file);
+        uploadError: function (file, reason) {
+            // file {File}File对象
+            // reason {String}出错的code
         }
     })
 </script>

@@ -214,7 +214,7 @@
         });
 
         // 文件上传失败，显示上传出错。
-        uploader.on('uploadError', function(file) {
+        uploader.on('uploadError', function(file, reason) {
             let $li = $('#' + file.id),
                 $error = $li.find('div.error');
 
@@ -232,7 +232,7 @@
 
             // 运行封装回调
             if (OPTS.uploadError) {
-                OPTS.uploadError(file);
+                OPTS.uploadError(file, reason);
             }
         });
 
