@@ -1,5 +1,5 @@
 /**
- * webuploaer.extend v0.0.4
+ * webuploaer.extend v0.0.5
  * webuploaer百度上传组件 UI 交互封装
  * @license: MIT
  * Designed and built by Moer
@@ -123,9 +123,11 @@
                     '<div id="' + file.id + '" class="file-item thumbnail">' +
                     '<img>' +
                     '<div class="info">' + file.name + '</div>' +
+                    '<i class="file-remove fa fa-trash-o"></i>' +
                     '</div>'
                 ),
-                $img = $li.find('img');
+                $img = $li.find('img'),
+                $remove = $li.find('.file-remove');
 
             // 设置尺寸
             $li.css({
@@ -154,6 +156,13 @@
             if (_getFilesNum() >= OPTS.fileNumLimit) {
                 $pick.hide()
             }
+
+            // 删除图片按钮事件
+            $remove.on('click',function (e) {
+                e.stopPropagation();
+                uploader.removeFile( file, true );
+                _resetCtrlButton();
+            })
 
             _resetCtrlButton();
         });
@@ -197,6 +206,11 @@
             $li.find('.error,.info').hide();
 
             _resetCtrlButton();
+
+            // 运行封装回调
+            if (OPTS.uploadSuccess) {
+                OPTS.uploadSuccess(file);
+            }
         });
 
         // 文件上传失败，显示上传出错。
@@ -215,6 +229,11 @@
             $li.find('.info').hide();
 
             _resetCtrlButton();
+
+            // 运行封装回调
+            if (OPTS.uploadError) {
+                OPTS.uploadError(file);
+            }
         });
 
         // 完成上传完了，成功或者失败，先删除进度条。
@@ -256,6 +275,15 @@
                 uploader.upload(errorFiles[i]);
             }
             $retry.hide();
+        })
+
+        // 缩略图上的删除按钮显示/隐藏
+        $list.on('mouseenter','.file-item',function () {
+            var $remove = $(this).find('.file-remove');
+            $remove.show()
+        }).on('mouseleave','.file-item',function () {
+            var $remove = $(this).find('.file-remove');
+            $remove.hide()
         })
     }
 

@@ -33,6 +33,15 @@
 
             // 单位字节，如果图片大小小于此值，不会采用压缩。
             compressSize: 0
+
+        },
+
+        uploadSuccess: function (file) {
+            console.info('文件上传成功',file);
+        },
+
+        uploadError: function (file) {
+            console.error('文件上传失败',file);
         }
     })
 </script>

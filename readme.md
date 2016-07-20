@@ -1,4 +1,4 @@
-# 微信前端框架 v0.1.1
+# 微信前端框架 v0.1.2
 
 https://github.com/Moerj/WeUI
   
@@ -141,6 +141,14 @@ $('#yourContanier').webuploader({
 
         // 单位字节，如果图片大小小于此值，不会采用压缩。
         compressSize: 0
+    },
+    
+    uploadSuccess: function (file) {
+        console.info('文件上传成功',file);
+    },
+
+    uploadError: function (file) {
+        console.error('文件上传失败',file);
     }
 })
 ```
