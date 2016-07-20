@@ -143,8 +143,9 @@ $('#yourContanier').webuploader({
         compressSize: 0
     },
     
-    uploadSuccess: function (file) {
-        console.info('文件上传成功',file);
+    uploadSuccess: function (file, response) {
+        console.info('文件上传成功：',file);
+        console.log('服务端返回数据：',response);
     },
 
     uploadError: function (file) {

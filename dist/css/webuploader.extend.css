@@ -50,7 +50,6 @@
   z-index: 3;
 }
 .webuploaer .uploader-list .thumbnail .file-remove {
-  display: none;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -59,6 +58,12 @@
   right: 0;
   left: auto;
   z-index: 3;
+}
+.webuploaer .uploader-list .thumbnail .file-remove::after {
+  content: 'x';
+  color: #fff;
+  font-style: normal;
+  font-family: BlinkMacSystemFont;
 }
 .webuploaer .uploader-pick {
   border: solid 2px #ddd;

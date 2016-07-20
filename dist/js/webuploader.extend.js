@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * webuploaer.extend v0.0.5
+ * webuploaer.extend v0.0.6
  * webuploaer百度上传组件 UI 交互封装
  * @license: MIT
  * Designed and built by Moer
@@ -109,7 +109,7 @@
 
         // 当有文件添加进来的时候
         uploader.on('fileQueued', function (file) {
-            var $li = $('<div id="' + file.id + '" class="file-item thumbnail">' + '<img>' + '<div class="info">' + file.name + '</div>' + '<i class="file-remove fa fa-trash-o"></i>' + '</div>'),
+            var $li = $('<div id="' + file.id + '" class="file-item thumbnail">' + '<img>' + '<div class="info">' + file.name + '</div>' + '<i class="file-remove"></i>' + '</div>'),
                 $img = $li.find('img'),
                 $remove = $li.find('.file-remove');
 
@@ -169,7 +169,7 @@
         });
 
         // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-        uploader.on('uploadSuccess', function (file) {
+        uploader.on('uploadSuccess', function (file, response) {
             var $li = $('#' + file.id),
                 $success = $li.find('div.success');
 
@@ -182,13 +182,13 @@
 
             $success.text('上传成功');
 
-            $li.find('.error,.info').hide();
+            $li.find('.error,.info,.file-remove').remove();
 
             _resetCtrlButton();
 
             // 运行封装回调
             if (OPTS.uploadSuccess) {
-                OPTS.uploadSuccess(file);
+                OPTS.uploadSuccess(file, response);
             }
         });
 
@@ -253,13 +253,15 @@
             $retry.hide();
         });
 
-        // 缩略图上的删除按钮显示/隐藏
-        $list.on('mouseenter', '.file-item', function () {
-            var $remove = $(this).find('.file-remove');
-            $remove.show();
-        }).on('mouseleave', '.file-item', function () {
-            var $remove = $(this).find('.file-remove');
-            $remove.hide();
-        });
+        // PC端缩略图上的删除按钮显示/隐藏
+        if ('ontouchend' in document.body == false) {
+            $list.on('mouseenter', '.file-item', function () {
+                var $remove = $(this).find('.file-remove');
+                $remove.show();
+            }).on('mouseleave', '.file-item', function () {
+                var $remove = $(this).find('.file-remove');
+                $remove.hide();
+            });
+        }
     };
 })();
