@@ -91,7 +91,7 @@ gulp.task('default', [], function() {
         },
 
         // 静态化的路径
-        serveStatic: ['.', './demos/']
+        serveStatic: ['./demos/']
 
 
     });

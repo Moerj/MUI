@@ -1,0 +1,56 @@
+<style media="screen">
+    .swiper-container {
+        width: 100%;
+        height: 200px;
+    }
+    .slide-1{
+        background: url(http://img.alicdn.com/tps/i3/TB1kt4wHVXXXXb_XVXX0HY8HXXX-1024-1024.jpeg);
+        background-size: cover;
+    }
+    .slide-2{
+        background: url(http://img.alicdn.com/tps/i1/TB1SKhUHVXXXXb7XXXX0HY8HXXX-1024-1024.jpeg);
+        background-size: cover;
+    }
+    .slide-3{
+        background: url(http://img.alicdn.com/tps/i4/TB1AdxNHVXXXXasXpXX0HY8HXXX-1024-1024.jpeg);
+        background-size: cover;
+    }
+</style>
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide slide-1"></div>
+        <div class="swiper-slide slide-2"></div>
+        <div class="swiper-slide slide-3"></div>
+    </div>
+    <!-- 如果需要分页器 -->
+    <div class="swiper-pagination"></div>
+
+    <!-- 如果需要导航按钮 -->
+    <!-- <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+
+    <!-- 如果需要滚动条 -->
+    <!-- <div class="swiper-scrollbar"></div> -->
+</div>
+
+
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        autoplay : 5000,
+        grabCursor : true,
+
+        // 如果需要分页器
+        pagination: '.swiper-pagination',
+        paginationClickable :true,
+
+        // 如果需要前进后退按钮
+        // nextButton: '.swiper-button-next',
+        // prevButton: '.swiper-button-prev',
+
+        // 如果需要滚动条
+        // scrollbar: '.swiper-scrollbar',
+    })
+</script>
