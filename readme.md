@@ -1,6 +1,6 @@
 # 移动端前端框架 v0.1.3
 
-https://github.com/Moerj/WeUI
+https://github.com/Moerj/MUI
   
   
 ## 依赖
