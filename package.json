@@ -1,7 +1,7 @@
 {
-  "name": "WeUI",
+  "name": "MUI",
   "version": "1.0.0",
-  "description": "微信h5项目框架",
+  "description": "移动端前端框架",
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
     "browser-sync": "^2.10.1",
@@ -18,8 +18,9 @@
     "gulp-util": "^3.0.7"
   },
   "keywords": [
-    "weixin",
-    "WeUI"
+    "微信",
+    "IOS",
+    "MUI"
   ],
   "author": "Moer",
   "license": "ISC"
