@@ -5,7 +5,7 @@
 var gulp = require('gulp'); //gulp主功能
 
 // 语法编译
-var less = require('gulp-less'); //less编译
+var sass = require('gulp-sass'); //sass编译
 var babel = require('gulp-babel');
 
 // 文件处理
@@ -28,18 +28,18 @@ var reload = browserSync.reload;
 // =================================
 
 var jsSrc = 'src/js/**/*.js';
-var lessSrc = 'src/less/**/*.less';
+var sassSrc = 'src/sass/**/*.scss';
 
 
-gulp.task('less', function() {
-    return gulp.src(lessSrc)
+gulp.task('sass', function() {
+    return gulp.src(sassSrc)
         .pipe(plumber({
             errorHandler: notify.onError('Error: <%= error.message %>')
         }))
+        .pipe(sass().on('error', $.sass.logError))
         .pipe(autoprefixer({
             browsers: ['last 2 versions', 'Android >= 4.0']
         }))
-        .pipe(less())
         .pipe(gulp.dest('dist/css'))
         .pipe(reload({
             stream: true
@@ -87,8 +87,8 @@ gulp.task('default', [], function() {
         // 动态根路径
         server: {
             baseDir: "./dist/",
-            // index: "./demos/wui/index.html"
-            index: "./demos/sui/index.html"
+            index: "./demos/wui/index.html"
+            // index: "./demos/sui/index.html"
         },
 
         // 静态化的路径
@@ -98,7 +98,7 @@ gulp.task('default', [], function() {
     });
 
     // 文件改变，自动执行编译或打包的任务
-    gulp.watch(lessSrc, ['less'])
+    gulp.watch(sassSrc, ['sass'])
     gulp.watch(jsSrc, ['js-es2015'])
 
 });
